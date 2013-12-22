@@ -37,6 +37,11 @@ public class Command_serverkill extends BukkitCommand
             mode = (PanelMode.KILL);
         }
 
+        if (args.length != 0)
+        {
+            return showUsage();
+        }
+
         PanelAccess(commandSender, commandSenderPlayer, mode);
 
         return true;
