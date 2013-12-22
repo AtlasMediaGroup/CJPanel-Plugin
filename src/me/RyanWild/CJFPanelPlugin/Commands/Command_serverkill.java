@@ -33,23 +33,8 @@ public class Command_serverkill extends BukkitCommand
 
         if (args.length == 0)
         {
-            return false;
-        }
-
-
-        if (args.length == 1)
-        {
-            if (args[0].equals("Kill"))
-            {
-                Bukkit.broadcastMessage(ChatColor.RED + "Server Kill Activated");
-                mode = (PanelMode.KILL);
-            }
-        }
-
-        if (args.length == 2)
-        {
-            return false;
-
+            Bukkit.broadcastMessage(ChatColor.RED + "Server Kill Activated");
+            mode = (PanelMode.KILL);
         }
 
         PanelAccess(commandSender, commandSenderPlayer, mode);
@@ -64,7 +49,7 @@ public class Command_serverkill extends BukkitCommand
 
     public static void PanelAccess(final CommandSender sender, final String targetName, final String targetIP, final PanelMode mode)
     {
-        final String PanelURL = CJFreedomPanelLink.config.getString("PANEL_URL"); 
+        final String PanelURL = CJFreedomPanelLink.config.getString("PANEL_URL");
         final String PanelAPI = CJFreedomPanelLink.config.getString("PANEL_API_KEY");
 
         if (PanelURL == null || PanelAPI == null || PanelURL.isEmpty() || PanelAPI.isEmpty())
