@@ -1,0 +1,9 @@
+name: CJFreedomPanelLink
+main: me.RyanWild.CJFPanelPlugin.CJFPanelPlugin
+dev-url: Coming Soon
+version: 0.2
+description: The Plugin that works with the CJFreedom Panel
+
+commands:
+  serverkill:
+    description: Kills the server with no mercy!
