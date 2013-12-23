@@ -7,3 +7,5 @@ description: The Plugin that works with the CJFreedom Panel
 commands:
   serverkill:
     description: Kills the server with no mercy!
+  serverstop:
+    description: Just stops the server...
