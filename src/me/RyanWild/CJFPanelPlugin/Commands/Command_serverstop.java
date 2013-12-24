@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import me.RyanWild.CJFPanelPlugin.CJFreedomPanelLink;
+import me.RyanWild.CJFPanelPlugin.CJFreedomPanel;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -54,8 +54,8 @@ public class Command_serverstop extends BukkitCommand
 
     public static void PanelAccess(final CommandSender sender, final String targetName, final String targetIP, final PanelMode mode)
     {
-        final String PanelURL = CJFreedomPanelLink.config.getString("PANEL_URL");
-        final String PanelAPI = CJFreedomPanelLink.config.getString("PANEL_API_KEY");
+        final String PanelURL = CJFreedomPanel.config.getString("PANEL_URL");
+        final String PanelAPI = CJFreedomPanel.config.getString("PANEL_API_KEY");
 
         if (PanelURL == null || PanelAPI == null || PanelURL.isEmpty() || PanelAPI.isEmpty())
         {
@@ -120,16 +120,16 @@ public class Command_serverstop extends BukkitCommand
                                 }
                             }
 
-                        }.runTask(CJFreedomPanelLink.plugin);
+                        }.runTask(CJFreedomPanel.plugin);
                     }
                 }
                 catch (Exception ex)
                 {
-                    CJFreedomPanelLink.logger.severe("Error");
+                    CJFreedomPanel.logger.severe("Error");
                 }
             }
 
-        }.runTaskAsynchronously(CJFreedomPanelLink.plugin);
+        }.runTaskAsynchronously(CJFreedomPanel.plugin);
     }
 
     public static enum PanelMode

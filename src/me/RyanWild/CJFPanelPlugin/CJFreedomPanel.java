@@ -10,7 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CJFreedomPanelLink extends JavaPlugin
+public class CJFreedomPanel extends JavaPlugin
 {
 
     public static final Logger logger = Bukkit.getLogger();
@@ -19,7 +19,7 @@ public class CJFreedomPanelLink extends JavaPlugin
 
     public static YamlConfig config;
 
-    public static CJFreedomPanelLink plugin;
+    public static CJFreedomPanel plugin;
 
     public static final String MSG_NO_PERMS = ChatColor.RED + "You do not have permission to use this command.";
 
@@ -39,7 +39,7 @@ public class CJFreedomPanelLink extends JavaPlugin
     @Override
     public void onDisable()
     {
-        CJFreedomPanelLink.logger.info("LinkMe Plugin Disabled");
+        CJFreedomPanel.logger.info("LinkMe Plugin Disabled");
     }
 
     @Override

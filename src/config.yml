@@ -1,0 +1,17 @@
+###################################
+#### CJFreedom Panel Link Config###
+########## Version: 0.2 ###########
+###################################
+
+# Please include the FULL link including HTTP / HTTPS
+# Please also ensure you include UPTO the api.php part, as in the example ( 'http://www.panel.com/api.php' )
+
+PANEL_URL: 'http://www.panel.com/api.php'
+
+# This is the unique code you should have generated, best to use random letters and numbers, NO SYMBOLS please! 
+
+PANEL_API_KEY: 'KEY_HERE'
+
+###################################
+#### End of configuration file ####
+###################################
