@@ -1,11 +1,8 @@
-name: CJFreedomPanelLink
+name: CJPanel-Plugin
 main: me.RyanWild.CJFPanelPlugin.CJFPanelPlugin
-dev-url: Coming Soon
-version: 0.2
-description: The Plugin that works with the CJFreedom Panel
+version: 0.3
+description: The Plugin that works with the CJPanel
 
 commands:
-  serverkill:
-    description: Kills the server with no mercy!
-  serverstop:
-    description: Just stops the server...
+  server:
+    description: Access the API command.

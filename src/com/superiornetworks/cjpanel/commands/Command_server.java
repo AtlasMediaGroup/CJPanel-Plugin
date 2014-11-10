@@ -1,9 +1,6 @@
-package me.RyanWild.CJFPanelPlugin.Commands;
+package com.superiornetworks.cjpanel.commands;
 
-import net.pravian.bukkitlib.command.BukkitCommand;
-import net.pravian.bukkitlib.command.CommandPermissions;
-import net.pravian.bukkitlib.command.SourceType;
-
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,19 +10,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import me.RyanWild.CJFPanelPlugin.CJFreedomPanel;
+import com.superiornetworks.cjpanel.CJPanel;
+import me.StevenLawson.TotalFreedomMod.TFM_Log;
+import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
-import org.bukkit.Bukkit;
+import net.pravian.bukkitlib.command.BukkitCommand;
+import net.pravian.bukkitlib.command.CommandPermissions;
+import net.pravian.bukkitlib.command.SourceType;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-@CommandPermissions(source = SourceType.PLAYER, usage = "Usage: /<command>", permission = "cjpanel.stop")
-public class Command_serverstop extends BukkitCommand
+@CommandPermissions(source = SourceType.PLAYER)
+public class Command_server extends BukkitCommand
 {
-
     @Override
     public boolean run(CommandSender commandSender, Command command, String commandLabel, String[] args)
     {
@@ -33,29 +33,58 @@ public class Command_serverstop extends BukkitCommand
 
         if (args.length == 0)
         {
-            Bukkit.broadcastMessage(ChatColor.RED + "Server Kill Activated");
-            mode = (PanelMode.STOP);
+            return false;
         }
 
-        if (args.length != 0)
+        if (args.length == 1)
         {
-            return showUsage();
+            if (args[0].equals("reboot"))
+            {
+                mode = (PanelMode.REBOOT);
+            }
+
+            if (args[0].equals("kill"))
+            {
+                mode = (PanelMode.KILL);
+            }
+
+            if (args[0].equals("wipeflatlands"))
+            {
+                mode = (PanelMode.WIPEFLAT);
+            }
+
+            if (args[0].equals("essentialwipe"))
+            {
+                mode = (PanelMode.ESSWIPE);
+            }
+
+            if (args[0].equals("test"))
+            {
+                mode = (PanelMode.TEST);
+            }
+
         }
 
-        PanelAccess(commandSender, commandSenderPlayer, mode);
+        if (args.length == 2)
+        {
+            return false;
+
+        }
+
+     PanelAccess(commandSender, (Player) commandSender, mode);
 
         return true;
     }
 
-    public static void PanelAccess(final CommandSender sender, final Player target, final Command_serverstop.PanelMode mode)
+    public static void PanelAccess(final CommandSender sender, final Player target, final Command_server.PanelMode mode)
     {
         PanelAccess(sender, target.getName(), target.getAddress().getAddress().getHostAddress().trim(), mode);
     }
 
     public static void PanelAccess(final CommandSender sender, final String targetName, final String targetIP, final PanelMode mode)
     {
-        final String PanelURL = CJFreedomPanel.config.getString("PANEL_URL");
-        final String PanelAPI = CJFreedomPanel.config.getString("PANEL_API_KEY");
+        final String PanelURL = CJPanel.config.getString("PANEL_URL");
+        final String PanelAPI = CJPanel.config.getString("PANEL_API_KEY");
 
         if (PanelURL == null || PanelAPI == null || PanelURL.isEmpty() || PanelAPI.isEmpty())
         {
@@ -119,24 +148,20 @@ public class Command_serverstop extends BukkitCommand
                                     sender.sendMessage(ChatColor.RED + "There has been a General error conncting to the API - Contact a CJFreedomMod Developer ASAP");
                                 }
                             }
-
-                        }.runTask(CJFreedomPanel.plugin);
+                        }.runTask(TotalFreedomMod.plugin);
                     }
                 }
-                catch (Exception ex)
+                catch (IOException | IllegalArgumentException | IllegalStateException ex)
                 {
-                    CJFreedomPanel.logger.severe("Error");
+                    TFM_Log.severe(ex);
                 }
             }
-
-        }.runTaskAsynchronously(CJFreedomPanel.plugin);
+        }.runTaskAsynchronously(TotalFreedomMod.plugin);
     }
 
     public static enum PanelMode
     {
-
-        DONOTHING("donothing"), STOP("stop");
-
+        REBOOT("restart"), DONOTHING("donothing"), KILL("kill"), WIPEFLAT("wipeflatlands"), ESSWIPE("clearuserdata"), TEST("tester");
         private final String mode;
 
         private PanelMode(String mode)
@@ -149,15 +174,12 @@ public class Command_serverstop extends BukkitCommand
         {
             return mode;
         }
-
     }
 
     private static class URLBuilder
     {
-
         private final String requestPath;
-
-        private final Map<String, String> queryStringMap = new HashMap<String, String>();
+        private final Map<String, String> queryStringMap = new HashMap<>();
 
         public URLBuilder(String requestPath)
         {
@@ -172,7 +194,7 @@ public class Command_serverstop extends BukkitCommand
 
         public URL getURL() throws MalformedURLException
         {
-            List<String> pairs = new ArrayList<String>();
+            List<String> pairs = new ArrayList<>();
             Iterator<Entry<String, String>> it = queryStringMap.entrySet().iterator();
             while (it.hasNext())
             {
@@ -182,6 +204,5 @@ public class Command_serverstop extends BukkitCommand
 
             return new URL(requestPath + "?" + StringUtils.join(pairs, "&"));
         }
-
     }
 }
