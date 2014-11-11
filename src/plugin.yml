@@ -1,7 +1,8 @@
 name: CJPanel-Plugin
 main: me.RyanWild.CJFPanelPlugin.CJFPanelPlugin
-version: 0.3
+version: 0.3.1
 description: The Plugin that works with the CJPanel
+depend: [TotalFreedomMod]
 
 commands:
   server:
