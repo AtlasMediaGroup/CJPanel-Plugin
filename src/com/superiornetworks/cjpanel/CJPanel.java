@@ -1,10 +1,8 @@
 package com.superiornetworks.cjpanel;
 
-import java.util.logging.Logger;
 import com.superiornetworks.cjpanel.commands.Command_server;
 import net.pravian.bukkitlib.command.BukkitCommandHandler;
 import net.pravian.bukkitlib.config.YamlConfig;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -38,7 +36,7 @@ public class CJPanel extends JavaPlugin
     @Override
     public void onDisable()
     {
-        TFM_Log.info("LinkMe Plugin Disabled");
+        TFM_Log.info("The CJPanel API Link has been disabled.");
     }
 
     @Override

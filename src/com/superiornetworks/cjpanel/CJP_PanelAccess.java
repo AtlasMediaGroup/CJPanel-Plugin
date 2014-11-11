@@ -9,7 +9,6 @@ import me.StevenLawson.TotalFreedomMod.TotalFreedomMod;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
-import com.superiornetworks.cjpanel.CJP_UrlBuilder;
 
 public class CJP_PanelAccess
 {
@@ -56,44 +55,33 @@ public class CJP_PanelAccess
                             @Override
                             public void run()
                             {
-                                if (responseCode == 200)
+
+                                if (responseCode != 200 || responseCode != 123 || responseCode != 201 || responseCode != 122 || responseCode != 121)
                                 {
-                                    sender.sendMessage(ChatColor.RED + "The Panel API Access status is UNKNOWN - Contact a CJFreedomMod developer ASAP!");
+                                    sender.sendMessage("Unkown Response Code");
                                 }
                                 else
                                 {
-                                    if (responseCode == 123)
+                                    switch (responseCode)
                                     {
-                                        sender.sendMessage(ChatColor.GREEN + "Connection to the Panel API Established. Request to " + mode.toString() + " has been recieved.");
-                                    }
-                                    else
-                                    {
-                                        if (responseCode == 201)
-                                        {
+                                        case 200:
+                                            sender.sendMessage(ChatColor.RED + "The Panel API Access status is UNKNOWN - Contact a CJFreedomMod developer ASAP!");
+                                        case 123:
+                                            sender.sendMessage(ChatColor.GREEN + "Connection to the Panel API Established. Request to " + mode.toString() + " has been recieved.");
+                                        case 201:
                                             sender.sendMessage(ChatColor.GREEN + "A connection to the panel has been established! An action is now required.");
-                                        }
-                                        else
-                                        {
-                                            if (responseCode == 121)
-                                            {
-                                                sender.sendMessage(ChatColor.RED + "The API has been disabled on the Webserver. Please contact a CJFreedomMod Developer ASAP! ");
-                                            }
-                                            else
-                                            {
-                                                if (responseCode == 122)
-                                                {
-                                                    sender.sendMessage(ChatColor.RED + "The Key located in the servers properties file does not mach the key located on the webserver - Please contact a CJFreedomMod developer ASAP!");
-                                                }
-                                                else
-                                                {
-                                                    sender.sendMessage(ChatColor.RED + "There has been a General error conncting to the API - Contact a CJFreedomMod Developer ASAP");
-                                                }
-                                            }
-                                        }
+                                        case 122:
+                                            sender.sendMessage(ChatColor.RED + "The Key located in the servers properties file does not mach the key located on the webserver - Please contact a CJFreedomMod developer ASAP!");
+                                        case 121:
+                                            sender.sendMessage(ChatColor.RED + "The API has been disabled on the Webserver. Please contact a CJFreedomMod Developer ASAP! ");
+
                                     }
+
                                 }
                             }
-                        }.runTask(TotalFreedomMod.plugin);
+
+                        }.
+                                runTask(TotalFreedomMod.plugin);
                     }
                 }
                 catch (IOException | IllegalArgumentException | IllegalStateException ex)
@@ -101,7 +89,8 @@ public class CJP_PanelAccess
                     TFM_Log.severe(ex);
                 }
             }
-        }.runTaskAsynchronously(TotalFreedomMod.plugin);
+        }
+                .runTaskAsynchronously(TotalFreedomMod.plugin);
     }
 
 }
