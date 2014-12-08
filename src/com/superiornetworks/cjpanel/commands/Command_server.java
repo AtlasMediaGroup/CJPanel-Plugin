@@ -80,12 +80,6 @@ public class Command_server extends BukkitCommand
                         commandSender.sendMessage(CJPanel.MSG_NO_PERMS);
                     }
                 }
-
-                if (args[0].equals("test"))
-                {
-                    mode = (PanelMode.TEST);
-                }
-
             }
 
             if (args.length == 2)
@@ -109,7 +103,7 @@ public class Command_server extends BukkitCommand
     public static enum PanelMode
     {
 
-        REBOOT("restart"), DONOTHING("donothing"), KILL("kill"), WIPEFLAT("wipeflatlands"), ESSWIPE("clearuserdata"), TEST("tester");
+        REBOOT("restart"), DONOTHING("donothing"), KILL("kill"), WIPEFLAT("wipeflatlands"), ESSWIPE("clearuserdata");
         private final String mode;
 
         private PanelMode(String mode)
