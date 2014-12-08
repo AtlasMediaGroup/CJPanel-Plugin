@@ -31,6 +31,9 @@ public class CJPanel extends JavaPlugin
 
         config = new YamlConfig(plugin, "config.yml", true);
         config.load();
+        
+        getServer().getPluginManager().isPluginEnabled("TotalFreedomMod");
+        
     }
 
     @Override
